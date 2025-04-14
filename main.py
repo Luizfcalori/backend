@@ -1,10 +1,23 @@
 from fastapi import FastAPI
-from scraper import get_betano_odds
-from surebet import find_surebets
+from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
+from scraper import get_surebets
+import os
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/surebets")
-def get_surebets():
-    games = get_betano_odds()
-    return find_surebets(games)
+def read_surebets():
+    return get_surebets()
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
