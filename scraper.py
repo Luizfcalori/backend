@@ -6,7 +6,7 @@ import time
 def get_surebets():
     return [
         {
-            "team1": "Time A",
+            "team1": "Palmeiras",
             "odd1": 2.1,
             "team2": "Time B",
             "odd2": 2.2,
